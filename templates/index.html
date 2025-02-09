@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="New task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    
+    <ul>
+        {% for task in tasks %}
+            <li class="{% if task[2] == 1 %}done{% endif %}">
+                {{ task[1] }}
+                {% if task[2] == 0 %}
+                    <a href="{{ url_for('mark_done', task_id=task[0]) }}">Done</a>
+                {% endif %}
+                <a href="{{ url_for('delete_task', task_id=task[0]) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
